@@ -1,0 +1,894 @@
+%必须使用xelatex编译
+\documentclass[12pt, a4paper, twoside]{ctexart}%ctexart默认就是宋体 中文小四对应12pt
+\usepackage{ctex} %中文宏包
+\usepackage{bm}%斜体加粗
+\usepackage{CJK}%中文宏包
+\usepackage{abstract}%调整摘要的格式
+\usepackage{amsmath}%数学宏包
+\usepackage{amssymb}%特殊符号宏包
+\usepackage{mathrsfs}%mathscr字体宏包
+\usepackage{subfigure}
+\usepackage[subfigure]{tocloft}%设置目录
+\usepackage{titletoc}%设置目录
+\usepackage{titlesec}%设置章节标题等内容
+\usepackage{amsthm}
+%\usepackage{newtxmath} % must come after amsXXX 这个包有点问题，比如会使得公式中的+-号失效
+\usepackage{layout}%页面设置宏包
+\usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=2cm]{geometry}%页面设置
+\usepackage{fancyhdr}%页眉页脚宏包
+\usepackage{color,xcolor}%字的颜色
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=green,citecolor=red]{hyperref}%引用并设置颜色
+\usepackage{pgffor}
+\usepackage{amsfonts}%\mathbb{C}黑板粗体C
+\usepackage{multirow}
+\usepackage{setspace}%使用spacing环境调节部分行间距
+\usepackage{diagbox}
+\usepackage{bigstrut}
+\usepackage{graphicx}% 插入图片
+\usepackage{fontspec} % 字体宏包
+\usepackage{fontenc} % 保证英文字体加粗有效
+
+\usepackage{indentfirst}%调节首行缩进
+
+
+\usepackage{txfonts}
+\usepackage{tabularx,tabulary}
+\usepackage{array}
+\usepackage{bm} %一种加粗的方法
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{appendix}%附录
+\usepackage{newtxtext}
+\usepackage{tocbibind}
+\usepackage{subfigure}
+\usepackage{enumitem}%enumerate扩充包，可调节版式
+\usepackage{tikz}%绘制流程图
+\usepackage{pgf}
+\usetikzlibrary{arrows,shapes,chains}%绘制流程图
+\usepackage{listings}%源代码格式
+\usepackage{cite}%引用参考文献
+
+\makeatletter%罗马数字 但是大写有问题
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter@slowromancap\romannumeral #1@}
+\makeatother
+\newcommand{\Varepsilon}{\mbox{{\Large $\varepsilon$}}}%大号的epsilon字母
+\newcommand{\circled}[1]{\pgfmathparse{
+		ifthenelse(#1 > 0 && #1 < 21, Hex(9311+#1), Hex(9450)
+	}{\fontspec{Cambria}\char"\pgfmathresult}}%生成带圈数字
+\newcommand{\rmd}{\mathrm{d}} %快速正体的d
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{ %
+	backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+	basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+	breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+	breaklines=true,                 % sets automatic line breaking
+	captionpos=bl,                    % sets the caption-position to bottom
+	commentstyle=\color{mygreen},    % comment style
+	deletekeywords={...},            % if you want to delete keywords from the given language
+	escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+	extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+	frame=single,                    % adds a frame around the code
+	keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+	keywordstyle=\color{blue},       % keyword style
+	%language=Python,                 % the language of the code
+	morekeywords={*,...},            % if you want to add more keywords to the set
+	numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+	numbersep=5pt,                   % how far the line-numbers are from the code
+	numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+	rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+	showstringspaces=false,          % underline spaces within strings only
+	showtabs=false,                  % show tabs within strings adding particular underscores
+	stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+	stringstyle=\color{orange},     % string literal style
+	tabsize=2,                       % sets default tabsize to 2 spaces
+	%title=myPython.py                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+\setmainfont[BoldFont={Times New Roman Bold},AutoFakeBold={Times New Roman Bold}]{Times New Roman}%设置英文和数字的默认字体 
+%latex本身的默认Roman Family 字体已经和罗马新体非常相似了但是不完全相同
+%全文默认是宋体
+\titlespacing*{\section}{0pt}{*0.1}{*1}%调节section的前后行间距, 但参数无法小于1
+
+\newcommand{\bline}{\vspace{0.4cm}\centerline{\rule[0pt]{\linewidth}{0.6pt}} \vspace{0.3cm}}%上下缩进 宽度 粗细
+
+%\hypersetup{colorlinks=true,linkcolor=black,citecolor=blue}
+
+\usepackage{ctexsize,type1cm}
+
+\fancypagestyle{mypage}{
+	\fancyhf{}%清空所有设置
+	\fancyhead[C]{华\enspace 中\enspace 科\enspace 技\enspace 大\enspace 学}%参数为OC表示只给奇数页加EC表示偶数页
+	%leftmark表示当前章标题, rightmark表示小节标题.
+	\fancyfoot[C]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}%改为0pt即可去掉页眉下面的横线
+	\renewcommand{\footrulewidth}{0.4pt}%改为0pt即可去掉页脚上面的横线
+}
+\pagestyle{mypage}
+\fancypagestyle{kong}{
+	\fancyhf{}%清空所有设置
+	\fancyhead[C]{华\enspace 中\enspace 科\enspace 技\enspace 大\enspace 学}
+	%\fancyfoot[C]{\thepage} 不要页码的一个页眉页脚
+	\renewcommand{\headrulewidth}{0.4pt}%改为0pt即可去掉页眉下面的横线
+	\renewcommand{\footrulewidth}{0.4pt}%改为0pt即可去掉页脚上面的横线
+}
+\setstretch{1.6}%调节全文默认行间距
+\setlength{\parindent}{0em}%设置默认首行缩进 2em是默认值.
+\begin{document}
+\indent%全文首行缩进
+
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+%调整行间公式与上下文的间距
+	\begin{spacing}{1.5}
+		\begin{center}
+			\vspace{1.5cm}{\Huge 华中科技大学\\
+				数学与统计学院考研资料\\
+				高等代数与高等代数\\}
+			\vspace{2cm}{\Large 23届本科生\quad 何七百}
+		\end{center}
+	\end{spacing}
+	\thispagestyle{empty}
+	\clearpage
+	\section*{序}
+{	\setlength{\parindent}{2em}%
+本文汇集了2009年到2023年的华中科技大学考研数学分析与高等代数的真题, 按时间顺序排列, 目前仅有题目部分. \par
+本人为华中科技大学数学与统计学院2019级本科生, 本科成绩中等, 参与2023届研究生考试, 侥幸考上本院, 数学分析仅得67分, 高等代数121分, 很不均匀, 一方面确实为本人实力不济, 另一方面可能是当年难度差异较大. 总的来说2019年之前的题目难度非常稳定, 但是2019年及之后难度缓慢上升, 特别是数学分析在2022年的题量和难度均加大, 2023年的数学分析更是一举使分数线下调90分之多, 其难度出题类型已经比较接近华五名校. 当然, 某些年份也会偶尔出现难题, 那就大不了大家都不会嘛. 按照目前情况而言, 希望大家主要参考2019年及之后年份的真题. \par 
+虽然本人实力不济, 但是这些题目均是参考多方面资料, 经过反复考证. 年份较久的试题答案基本是本人自己所写, 较新的试题网上有较多资料可参考, 本人择优摘录. 只是其中个别题目缺失遗漏, 错误(华科数院不会公布试题, 试题几乎全是回忆版), 本人从其他优秀的资料中, 按照该卷的出题模式, 摘取一些题目进行补足. 当然, 多做十题, 少做十题, 不会影响考研成绩. 数学学习讲究功在平时, 稳固的基本功比独具一格的做法更为重要. 本资料中或多或少会有些瑕疵, 欢迎大家指正 {\footnotesize \footnote{邮箱: hebrave@foxmail.com}}.\par 
+本资料仅供学习交流参考, 请勿他用. 希望对诸位考生有所帮助. \par
+\begin{flushright}
+	第一次编辑于2023年6月9日\\
+\end{flushright}
+}
+\thispagestyle{empty}
+\clearpage
+%\begin{spacing}{0.1}
+%	%\renewcommand{\contentsname}{}
+%	\pagenumbering{Roman}
+%	\setcounter{page}{1}
+%	\tableofcontents
+%\end{spacing}
+	\clearpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+	\section{数学分析2009}
+	%\addcontentsline{toc}{section}{数学分析2009}
+	1. 设$G(s,t)$是二元连续可微函数并且满足$aG_s + bG_t\neq 0$, 设$z=f(x,y)$是由$G(cx-az,cy-bz)=0$所确定的函数, 
+	其中$a, b, c$是非0的常数. 求$az_x + bz_y$的值. \par
+	2. 计算第二型曲线积分
+	\[I=\int_C\frac{(x-y)\ \mathrm{d}x+(x+4y)\ \mathrm{d}y}{x^2+4y^2}, \]
+	其中$C:x^2+y^2=1$(逆时针方向). \par
+	3. 计算三重积分
+	\[I=\iiint_\Omega(x+y-z)(x-y+z)(y+z-x)\ \mathrm{dxdydz},\]
+	 其中$\Omega=\{(x,y,z)\ |\ 0\leq x+y-z\leq1, 0\leq x-y+z\leq, 0\leq y+z-x\leq1.\}$\par
+	4. 请将$f(x)=x(\pi-x)$在$[0,\pi]$上展开为余弦级数并求出在$[-\pi,\pi]$上的和函数. \par 
+	5. (1)求$f(x,y,z)=\ln x+2\ln y+3\ln z$在$x^2+y^2+z^2=6R^2$球面上的最大值. \par
+	\hspace{1.2em}(2)设$a,b,c$为正数,证明不等式$ab^2c^3\leq108\Big(\dfrac{a+b+c}{6}\Big)^6$. \par
+	6. 讨论函数项级数$\sum\limits_{n=0}^{\infty}\dfrac{x^2}{(1+x^2)^n}$在$(-\infty,+\infty)$上的一致收敛性. \par
+	7. 设$f(x)$在$(0,1]$上连续可微, 极限$\underset{x\rightarrow0^+}{\mathrm{lim}}x^rf'(x)$存在, 证明$f(x)$在区间$(0,1]$上一致连续. (原题此处仅需证明$r=1/2$的情况)\par
+	8. 设正项级数$\sum\limits_{n=1}^{\infty}a_n$发散且$\underset{n\rightarrow\infty}{\mathrm{lim}}\dfrac{a_n}{A_n}=0$, 其中$A_n=\sum\limits_{k=1}^{n}a_k$. 证明: $\sum\limits_{k=1}^{\infty}a_nx^n$的收敛半径为1. \par 
+	9. 设$f(x)\in C[0,1]$, 证明$\underset{n\rightarrow\infty}{\mathrm{lim}}\int_0^1nx^{n-1}f(x)\ \rmd x=f(1)$. \par 
+	10. 设$f(x)$在$(0,+\infty)$上连续,设广义积分$\int_0^\infty x^a f(x)\ \rmd x$和$\int_{0}^{+\infty} x^b f(x)\ \rmd x$均收敛, 其中$a<b$. 证明: 含参量广义积分$J(y)=\int_{0}^{\infty}x^yf(x)\ \rmd y$在$y\in[a,b]$上一致收敛. 
+	 \clearpage
+	\section{数学分析2010}
+	1. 计算极限$I=\lim\limits_{x\rightarrow+\infty}\big(\sqrt[5]{x^5+x^4}-\sqrt[5]{x^5-x^4}\big)$.\par
+	2. 设$Q(x,y)$在$\mathbb{R}^2$上连续可微, 曲线积分$\int_L2xy\ \rmd x+Q(x,y)\ \rmd y$与路径无关, 并且对任意的t都有$\int_{(0,0)}^{(t,1)}2xy\rmd x+Q(x,y)\rmd y
+	=\int_{(0,0)}^{(1,t)}2xy\rmd x+Q(x,y)\rmd y$. 求$Q(x,y)$. \par
+	3. 设$f(r)$在$\mathbb{R}$上可微且$f(0)=0$, $f'(0)=1$. 求极限\[\
+	I=\lim\limits_{r\rightarrow0^+}\frac{1}{r^4}\iiint\limits_{x^2+y^2+z^2\leq r}f\big(\sqrt{x^2+y^2+z^2}\big)\ \rmd x\rmd y\rmd z.\]\par 
+	4. 已知$\int_0^\infty e^{-y^2}\ \rmd y=\frac{\sqrt{\pi}}{2}$, 请计算广义含参量积分\[
+	I(x)=\int_0^\infty e^{-y^2}\cos (2xy)\ \rmd y\quad x\in\mathbb{R}.\]\par 
+	5. 设$a_1>0$, 令$a_{n+1}=\frac{1}{2}(a_n+\frac{1}{a_n})$. 证明: $\{a_n\}$收敛并求出极限.\par
+	6. 设广义积分$\int_1^\infty xf(x)\ \rmd x$收敛. 证明广义积分$\int_1^\infty f(x)\ \rmd x$也收敛.\par
+	7. 设$f(x)$在$[-1,1]$上二阶连续可微且有$\lim\limits_{x\rightarrow0}\frac{f(x)}{0}=0$, 证明: 数项级数$\sum\limits_{n=1}^{\infty}f(\frac{1}{n})$绝对收敛. \par
+	8. 设$\sum\limits_{n=1}^{\infty}u_n(x)$在有界闭区间$[a,b]$上逐点收敛, 其中$u_n(x)$在区间$[a,b]$上可微且存在$M>0$使得$\Big|\sum\limits_{k=1}^{\infty}u_k'(x)\Big|\leq M,\ \forall x\in[a,b],\ \forall n\ge1.\ $证明: $\sum\limits_{n=1}^\infty$在$[a,b]$上一致收敛. \par
+	9. 设二元函数$u(t,x)$在$[0,T)\times[a,b]$上二阶连续可微且有$u_t=u_{xx}-u,\ u_x(t,a)=u_x(t,b)=0,\ \forall t\in[0,T)$. 再定义$f(t)=\int_{a}^{b}\Big[u_x^2(t,x)+u^2(t,x)\Big]\rmd x$, 证明: $f(t)$在$[0,T)$上单调递减.\par
+	10. 设$f(x)$在$[0,1]$上二阶连续可微, 证明: $\int_{0}^{1}|f'(x)|\ \rmd x\leq 9\int_{0}^{1}|f(x)|+\int_0^1|f''(x)|\ \rmd x.$\par
+	\clearpage
+	\section{数学分析2011}
+	1. 求极限$\lim\limits_{k\rightarrow+\infty}x^\frac{3}{2}(2\sqrt{x}-\sqrt{x+1}-\sqrt{x-1})$.\par 
+	2. (存疑)设$f(x)$连续可微且$D:\ x^2+y^2\leq2tx$, 求极限$\lim\limits_{t\rightarrow0^+}\dfrac{\iint_D yf(\sqrt{x^2+y^2})\ \rmd x\rmd y}{t^4}.$\par 
+	3. 设曲面$S$是椭球面$z=\sqrt{2(1-x^2-y^2)}$的上半部分, 设$\rho$是原点到椭球面上的任意一点的切平面的距离, 求$\iint_S\dfrac{z}{\rho}\ \rmd S$.\par 
+	4. 计算积分$I=\oint_{L^+}y\ \rmd x+z\ \rmd y+x\ \rmd z$, 其中$L^+$为圆周$x^2+y^2+z^2=a^2,\ a>0$及$x+y+z=0$所确定的曲线, 从$z$轴的正向看为逆时针方向.\par
+	5. 已知级数$\sum\limits_{n=1}^\infty a_n$收敛. 证明: $\int_{0}^{1}\sum\limits_{n=1}^{\infty}a_nx^n\ \rmd x=\sum\limits_{n=1}^\infty\dfrac{a_n}{n+1}$, 并用之求出级数和$1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\frac{1}{5}+\cdots$.\par 
+	6. 计算$\int_0^\infty\dfrac{e^{-ax^2}-e^{-bx^2}}{x}\ \rmd x\quad(b>a>0)$.\par 
+	7. 设$a_n>0$, 级数$\sum\limits_{n=1}^\infty a_n$收敛, $r_n=\sum\limits_{k=n}^\infty a_k$. 证明: $\sum\limits_{n=1}^\infty \dfrac{a_n}{r_n}$发散. \par
+	8. 设$f(x)$在$[0,2\pi]$上可积, 证明: $\dfrac{1}{2\pi}\int_{0}^{2\pi}f(x)(\pi-x)\ \rmd x=\sum\limits_{n=1}^{\infty}\dfrac{b_n}{n}$.\par
+	9. 设$f(x)$在$[0,1]$上二阶连续可微, 证明: $\int_{0}^{1}|f'(x)|\ \rmd x\leq 9\int_{0}^{1}|f(x)|+\int_0^1|f''(x)|\ \rmd x.$\par
+	\clearpage
+	\section{数学分析2012}
+	1. (1)求极限$\lim\limits_{x\rightarrow0}\dfrac{1}{x}\Big(\dfrac{1}{x}-\dfrac{1}{\sin x}\Big)$.\par
+	\hspace{1.2em}(2)设$x_1=\sqrt{2},\ x_{n+1}=\sqrt{2x_n}$. 证明: $\{x_n\}$收敛并求出极限. \par
+	2. 求下列曲线在第一象限围成的图像的面积: $y=x^2,\ 2y=x^2,\ xy=1,\ xy=2.$\par
+	3. 求下列圆环$L$的质量. 已知圆环的形状: $x^2+y^2+z^2=1,\ x+y+z=0$, 并且其线密度为$\rho(x,y,z)=(x-1)^2+(y-1)^2+(z-1)^2.$\par 
+	4. 请将$f(x)=|\cos x|$展开为$[-\pi,\pi]$上的Fourier级数. \par
+	5. 求幂级数$\sum\limits_{n=0}^{\infty}\dfrac{n+1}{n!}x^n$的收敛域与和函数. \par
+	6. 已知$\sum\limits_{n=1}^{\infty}a_n$是发散的正项级数, $S_n$为其部分和, 请用Cauchy收敛原理证明$\sum\limits_{n=1}^{\infty}\dfrac{a_n}{S_n}$发散.\par
+	7. 已知$f(x)$在$[0,+\infty)$上连续, 极限$\lim\limits_{x\rightarrow+\infty}f(x)$存在且有限. 证明: $f(x)$在$[0,+\infty)$上有界. \par
+	8. 已知反常积分$\int_1^{+\infty}xf(x)\ \rmd x$收敛, 证明: 含参量反常积分$I(y)=\int_1^{+\infty}x^yf(x\,\rmd x)$在$[0,1]$上一致收敛.\par 
+	9. 已知$\Omega$为三维空间中的有界区域, $\Omega$的边界为分段光滑的曲面, $\mathbf{n}$为单位外法向量, $u(x,y,z)$为$\Omega$上的二阶连续可偏导函数. 求证:\[
+	\iiint_{\Omega}\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}+\frac{\partial^2u}{\partial z^2}\,\rmd x\rmd y\rmd z
+	=\iint_{\partial\Omega}\frac{\partial u}{\partial \mathbf{n}}\,\rmd S.\]\par 
+	10. 已知$f(x)$在$[0,1]$上二阶连续可微. 证明: $\max\limits_{x\in[0,1]}|f'(x)|\leq|f(1)-f(0)|+\int_0^1|f''(x)|\,\rmd x$. \par 
+	\clearpage
+	\section{数学分析2013}
+	1. (1)求极限$I=\lim\limits_{x\rightarrow0^+}\dfrac{1-\cos x}{\int_0^x\dfrac{\ln (1+xy)}{y}}$.\par 
+	\hspace{1.2em}(2)计算含参量广义积分$F(x)=\int_0^{+\infty}\dfrac{\sin(xy)}{ye^y}\,\rmd y.$\par 
+	2. 设$R(x,y)$是曲线$C:\,\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1\,(a,b>0)$上的点$(x,y)$处的曲率半径. 计算第一型曲线积分$\int_C R(x,y)\,\rmd S.$\par 
+	3. 设$\Omega$是椭球体$C:\,\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}+\dfrac{z^2}{c^2}\leq1\,(a,b,c>0) $在第一卦限中的部分. 计算三重积分$I=\iiint_\Omega \dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}+\dfrac{z^2}{c^2}\,\rmd x\rmd y\rmd z.$\par
+	4. 求幂级数$\sum\limits_{n=1}^\infty(-1)^{n-1}n^2 x^n$的收敛域及其和函数.\par
+	5. 在椭球面$C:\,\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}+\dfrac{z^2}{c^2}=1\,(a,b,c>0) $上确定第一卦限内的一点$(x_0,y_0,z_0)$, 使得过该点的切平面与三个坐标面所围成的四面体的体积最小, 并求出最小体积.\par
+	6. 设$f(x)$在$[0,+\infty]$连续, 又设极限$\lim\limits_{x\rightarrow+\infty}f(x)$存在且有限. 证明$f(x)$在$[0,+\infty]$上有界.\par
+	7. 设函数$f(x)\mbox{和}g(x)$在$[a,b]$上可导且$g(x)\neq0,\,\forall x\in(a,b)$. 证明: $\exists\ \xi\in(a,b)\ s.t. \dfrac{f(a)-f(\xi)}{g(\xi)-g(b)}=\dfrac{f'(\xi)}{g'(\xi)}.$\par 
+	8. 设连续函数列$\{u_n(x)\}$在$[a,b]$上一致收敛于函数$u(x)$. 并且对于$n=1,2,3,\dots,\ u_n(x)\mbox{在}[a,b]$上至少有一个零点. 证明: $u(x)$在$[a,b]$上也至少存在一个零点.\par
+	9. 设$f(x)$在$[0,1]$上二阶连续可微且在区间$(0,1)$内存在极值. 证明: $\max\limits_{x\in[0,1]}|f'(x)|\leq\int_0^1|f''(x)|\,\rmd x$.\par 
+	10. 证明: $\forall n\in \mathbb{N}^*$, 方程$x^{n+1}+x^n+\cdots+x=1$在$(0,1)$内存在唯一的实根$x_n$, 并证明$\{x_n\}$收敛.\par
+	\clearpage
+	\section{数学分析2014}
+	%\addcontentsline{toc}{section}{数学分析2014}
+	1. (1)求极限$\lim\limits_{n\rightarrow\infty}\dfrac{\sum\limits_{k=1}^n k^{\sqrt{2}}}{n^{\sqrt{2}+1}}$.\par
+	\hspace{1.2em}(2)设$f(x)$是$[0,\infty)$上的连续函数且$f(x)\ge0$. 用$\Sigma_t$表示抛物面$z=x^2+y^2$介于$z=0\mbox{和}z=t^2(t>0)$之间的部分. 请计算\[
+	\lim\limits_{t\rightarrow0^+}\dfrac{\iint\limits_{x^2+y^2\leq t^2}f(x^2+y^2)\,\rmd x\rmd y}{\iint_{\Sigma_t}f(z)\,\rmd S}.\]\par 
+	2. 计算第二型曲线积分$\int_\Gamma(x^2-y)\,\rmd x-(x+\sin y^2)\,\rmd y$, 其中$\Gamma$是圆$(x-1)^2+y^2=1$的下装部分, 方向从$(0,0)\mbox{到}(2,0)$.\par 
+	3. 计算第二型曲面积分$\iint_{S}x^2\,\rmd y\rmd z+y^2\,\rm z\rmd x+z^2\,\rmd x\rmd z$, 其中$S$为圆锥面$x^2+y^2=z^2$介于平面$z=0\mbox{和}z=1$之间的部分, 方向向下.\par
+	4. (1)请将$f(x)=x\sin x,\ x\in[-\pi,\pi]$上展开为Fourier系数, 并判断其收敛性.\par 
+	\hspace{1.2em}(2)求$\sum\limits_{n=2}^\infty\dfrac{1}{(n-1)(n+1)}$的和.
+	5. 求幂级数$\sum\limits_{n=1}^\infty\dfrac{(-1)^{n-1}x^{2n}}{n(2n-1)}$的收敛域及其和函数.\par
+	6. 设$F(u,v)$连续可微, $z=z(x,y)$是由$F(x+\dfrac{z}{y},-y+\dfrac{z}{x})=0$所确定的隐函数. 证明: $x\dfrac{\partial z}{\partial x}+y\dfrac{\partial z}{\partial y}+xy=z$.\par
+	7. 设$a_n>0\mbox{且}\sum\limits_{n=1}^\infty a_n$发散, 记$S_n=a_1+a_2+\cdots+a_n$, 证明: 正项级数$\sum\limits_{n=1}^\infty \dfrac{a_n}{S_n^2}$收敛.
+	8. 设$f(x)$在$[0,+\infty)$上可微且$e^{-x}f'(x)\mbox{在}[0,+\infty]$上有界. 证明: $e^{-x}f(x)\mbox{在}[0,+\infty)$上有界.\par
+	9. (1)设$f(x)\mbox{在}(0,+\infty)$上连续, 又设广义积分$\int_0^{+\infty}f(x)\,\rmd x$收敛且$\lim\limits_{x\rightarrow+\infty}f(x)$存在. 证明: \[\lim\limits_{x\rightarrow+\infty}f(x)=0.\]\par
+	\hspace{1.2em}(2)设$f(x)\mbox{在}(0,+\infty)$上连续可微, 又设广义积分$\int_0^{+\infty}f(x)\,\rmd x, \int_0^{+\infty}|f'(x)|\,\rmd x$收敛, 证明: \[|f(X)|\leq\int_0^{+\infty}|f'(t)|\,\rmd t.\]\par 
+	
+	
+	\clearpage
+	\section{数学分析2015}
+	1. 已知$x_1>0,\ x_{n+1}=\ln (1+x_n)$. 证明: $\{x_n\}$收敛且$\lim\limits_{n\rightarrow\infty}x_n=0$.\par 
+	2. 计算第二型曲线积分$I=\int_L\dfrac{x\,\rmd y-y\,\rmd x}{x^2+xy+y^2}$, 其中L是取逆时针方向的圆周$x^2+y^2=1$.\par 
+	3. 计算闭曲面$\Big(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}+\dfrac{z^2}{c^2}\Big)^2=cx\ (a,b,c>0)$所围的体积.\par
+	4. (1)请将$f(x)=x,\ x\in[0,\pi]$展开为余弦级数与正弦级数. \par
+	\hspace{1.2em}(2)证明: $\sum\limits_{n=1}^\infty\dfrac{1}{(2n-1)^2}=\dfrac{\pi^2}{8}$.\par 
+	5. (1)求$\sum\limits_{n=1}^\infty n^2 x^n$的收敛域.\par
+	\hspace{1.2em}(2)求$\sum\limits_{n=1}^\infty\dfrac{n^2+2n}{2^n}$的和.\par
+	6. 已知$f(x)\mbox{在}[0,+\infty)$连续可微且$f(0)=0$, $\sum\limits_{n=1}^{\infty}a_n$收敛且$a_n>0$. 证明: $\sum\limits_{n=1}^{\infty}f(a_n)$收敛.\par
+	7. 已知$f(x)\mbox{在}(0,+\infty)$二阶可微, $f(0)>0,\ f''(x)<0,\ f'(0)=0$. 证明: $ f(x)\mbox{在}(0,+\infty)$上至少有一根.\par
+	8. 已知$f(x)=\int_0^x t^n e^{-t}\,\rmd t,\ \sum\limits_{n=1}^\infty a_n$收敛. 证明: $\sum\limits_{n=1}^\infty\dfrac{a_n}{n!}f(x)\mbox{在}(0,+\infty)$一致收敛. \par
+	9. 已知$f(x)\mbox{在}(a,+\infty)$连续, 且$\int_a^{+\infty}f(x)\,\rmd x\mbox{与}\int_0^{+\infty}f'(x)$均收敛. 证明: $\lim\limits_{x\rightarrow+\infty}f(x)=0$.\par 
+	10. 设$f(x)\mbox{在}[a,b]$上连续, 在$(a,b)$上可微, 且存在$c\in(a,b)$使得$f(a)f(b)<0,\ f(b)f(c)<0$. 证明: $\exists\ \xi\in(a,b)\ s.t.\ f(\xi)+f'(\xi)=0$.\par 
+	
+	\clearpage
+	\section{数学分析2016}
+	1. 已知$f(x,y),\ f_y(x,y)$连续, 且$u(x,y)=\dfrac{1}{2}\int_0^s\,\rmd s\int_{y-x+s}^{y+x-s}f(s,t)\,\rmd t$. 证明: $u_{xx}-u_{yy}=f(x,y)$.\par 
+	2. 计算二重积分\[I=\iint_D\dfrac{y}{x}\sin(xy)\,\rmd x\rmd y,\]其中$D:\ xy=\dfrac{\pi}{4},\ xy=\dfrac{\pi}{2},\ y=x,\ y=2x,\ x>0$.\par 
+	3. 计算第二型曲面积分\[I=\iint_S x\,\rmd y+y\,\rmd z\rmd x+z\,\rmd x\rmd y,\]其中$S$为$x^2+y^2+z^2=1$的上半部分, 方向向上.\par
+	4. 请用闭区间套定理证明零点存在定理. \par
+	5. 已知$\lim\limits_{n\rightarrow\infty}n^\frac{5}{4}a_n=0\mbox{且}f(0)=f'(0)=0,\ f(x)\mbox{在}\mathbb{R}$上二阶可微. 证明: $\sum\limits_{n=1}^\infty nf(a_n)$收敛.\par
+	6. 求$\sum\limits_{n=0}^\infty\Big(\dfrac{n}{e}\Big)^n\dfrac{(-1)^n}{n!}x^n$的收敛半径和收敛域, 并说明在端点处的收敛情况.\par
+	7. 已知$f(\dfrac{a+b}{2})=0$. 证明: $\int_a^b|f(x)|\,\rmd x\leq \dfrac{b-a}{2}\int_a^b|f'(x)|\,\rmd x$.\par 
+	8. 已知$f(x)\in C^2(a,b),\ a>0,\ \mbox{且在}(a,b)$上有最大值与最小值. 证明: $\exists\ \xi\in(a,b)\ s.t.\ f'(\xi)-\dfrac{\xi f''(\xi)}{2}=0$.\par 
+	9. 请将$f(x)=\mathrm{sgn}\,x,\ x\in[-\pi,\pi]$展开为Fourier级数, 并计算$\sum\limits_{n=1}^\infty\dfrac{(-1)^{n-1}}{2n-1}$.\par 
+	10. (存疑)已知$\int_0^1 f(x)\,\rmd x$收敛. 证明: $\int_0^1\sin(x^3)f(x)\, \rmd x$一致收敛.\par
+	\clearpage
+	\section{数学分析2017}
+	1. 计算极限$\lim\limits_{x\rightarrow\infty}x-x^2\ln \Big(1+\dfrac{1}{x}\Big)$.\par 
+	2. 计算第二型曲面积分\[\iint_Sx\,\rmd y\rmd z+y\,\rmd z\rmd x+z\,\rmd x\rmd y,\]其中$S$表示曲面$z=\sqrt{1-x^2-y^2}$, 方向向上.\par
+	3. 计算$I=\int_0^\infty\dfrac{e^{-ax}-e^{-bx}}{x}\,\rmd x$.\par 
+	4. 求$\sum\limits_{n=0}\dfrac{x^{2n}}{2n+1}$的收敛域并求级数和. \par
+	5. 请将$f(x)=\arcsin(\cos x),\ x\in[-\pi,\pi]$展开为Fourier级数并计算$\sum\limits_{n=0}^\infty\dfrac{1}{(2n+1)^2}$.\par 
+	6. 请用确界原理证明单调有界原理.\par
+	7. (导数极限定理)已知$f(x)\mbox{在}(a,b)$上连续可微, 且$\lim\limits_{x\rightarrow a^+}$存在. 证明: $f(x)\mbox{在}x=a$右可导.\par
+	8. 已知级数$\sum\limits_{n=0}^\infty a_n$条件收敛, 设$a_n^+=\max\{a_n,0\},\ a_n^-=\max\{-a_n,0\}$. 证明:$
+	\lim\limits_{n\rightarrow\infty}\dfrac{\sum\limits_{k=0}^{n}a_k^+}{\sum\limits_{k=0}^{n}a_k^-}=1.$\par 
+	9. 已知$f(x,t)$在$\mathbb{R}^{2}$上二阶连续可微且有$f_{xx}(x,t)=f_{tt}(x,t)$. 设$E(t)=\dfrac{1}{2}\int_{t-1}^{1-t}\big[f_x(x,t)\big]^2+\big[f_t(x,t)\big]^2\,\rmd x$. 证明: $E(t)$单调递减.\par
+	10. 证明: \[
+	\iint_D|f(x,y)-f(0,0)|\,\rmd x\rmd y\leq\iint_D\dfrac{\sqrt{f_x^2(x,y)+f_y^2(x,y)}}{2\sqrt{x^2+y^2}}\,\rmd x\rmd y,\]
+	其中$D$表示平面$x^2+y^2\leq1$.\par 
+
+	\clearpage
+	\section{数学分析2018}
+	1. 计算极限$I=\lim\limits_{x\rightarrow 0}\dfrac{e^x\sin x-x(1+x)}{x^3}$.\par 
+	2. 计算二重积分\[
+	\iint_D\dfrac{(x+y)^2}{1+(x-y)^2}\,\rmd x\rmd y,\]
+	其中$D$为$x+y=-1,\ x+y=1,\ x-y=1,\ x-y=-1$所围成的区域.\par
+	3. 计算第二型曲面积分\[
+	I=\iint_{S}z^2\,\rmd y\rmd z+y^2\,\rmd z\rmd x-xz\,\rmd x\rmd y,\]
+	其中曲面$S$为上半椭球面$\dfrac{(x-1)^2}{4}+\dfrac{(y-2)^2}{9}+\dfrac{(z-3)^2}{16}=1,\ z\ge 3$, 方向向上.\par
+	4. (1)设$b>a>0$. 证明: $I(y)=\int_0^{+\infty}e^{-x}\cos(xy)\,\rmd x$关于$y\in[a,b]$一致收敛.\par
+	\hspace{1.2em}(2)利用积分次序交换定理, 计算$\int_0^{+\infty}\dfrac{\sin bx-\sin ax}{x}e^{-x}\,\rmd x$.\par
+	5. 请将$f(x)=\cos x,\ x\in[0,\pi]$展开为正弦级数并求和函数.\par
+	6. 已知数列$\{x_n\}$满足$x_1=\sqrt{2}, x_{n+1}=\sqrt{2+x_n}$. 证明: 数列$\{x_n\}$收敛并给出其极限.\par
+	7. 设$p,q$为已知常数, 且$p>0$. 证明: $x^3+px+q=0$有且仅有一个实根.\par
+	8. 求幂级数$\sum\limits_{n=1}^\infty\dfrac{\big[3+(-1)^{n-1}\big]^n}{n}x^n$的收敛半径和收敛域.\par
+	9. 请用Bolzano-Weierstrass聚点定理证明: 若函数$f(x)$在有界闭区间$[a,b]$上连续, 则它必在此区间上一致连续.\par
+	10. 已知$f(x)\mbox{在}[0,\pi]$上连续, 在$(0,\pi)$上可微. 证明: $\exists\ \xi\in(0,\pi)\ s.t.\ f'(\xi)+f(\xi)\cot\xi=0$.\par 
+	
+	\clearpage
+	\section{数学分析2019}
+	%\addcontentsline{toc}{section}{数学分析2019}
+	1. 已知曲线积分\[\int_{(0,0)}^{(1,t)}(x^2+2xy+y^2)\,\rmd x+Q(x,y)\,\rmd y=-\int_{(0,0)}^{(t,1)}(x^2+2xy+y^2)\,\rmd x+Q(x,y)\,\rmd y,\]
+	且积分与路径无关. 求$Q(x,y)$.\par 
+	2. 计算二重积分\[\iint_D e^\dfrac{x-y}{x+y}\,\rmd x\rmd y,\]其中区域$D$是$x=0,\ y=0,\ x+y=1$所围成的区域. \par
+	3. 计算极限$\lim\limits_{n\rightarrow\infty}\dfrac{1^{\sqrt{2}}+2{\sqrt{2}}+\cdots+n^{\sqrt{2}}}{n^{\sqrt{2}+1}}$.\par
+	4. 计算极限$\lim\limits_{x\rightarrow\infty}\Big(x^4-x^2\ln\Big(1+\dfrac{1}{x^2}\Big)\Big)$.\par 
+	5. 请将$f(x)=-1,\ x\in[0,\pi]$展开为正弦级数并求$\sum\limits_{k=0}\infty\dfrac{(-1)^k}{2k+1}$.\par 
+	6. 计算级数$\sum\limits_{n=1}^\infty\dfrac{1}{n\cdot3^n}$的和.\par
+	7. 已知$f(x)\in C(-\infty,0],\ \lim\limits_{x\rightarrow-\infty}f(x)-x=a$. 证明: $f(x)\mbox{在}(-\infty,0]$上一致连续.\par
+	8. 已知$\int_0^1x^af(x)$收敛且$J(y)=\int_0^1x^yf(x)\,\rmd x$. 证明: $J(y)\mbox{在}[a,+\infty)$上一致收敛.\par
+	9. 设函数$f(x)$二阶可导且在$(0,1)$上有最大值和最小值, 证明: $\exists\ \eta\in(0,1)\ s.t.\ f''(\eta)=f'(\eta)$.\par 
+	10. (错误)已知$f(x)>0,\ f(x)$连续. 证明: $f(x)\mbox{在}(a,b)$上单调递增.
+	\clearpage
+	\section{数学分析2020}
+	1. 当$x\in(0,\pi)$时, 计算极限\[I=\lim\limits_{n\infty}\bigg(\dfrac{\sin \dfrac{x}{n}}{n+1}+\dfrac{2\sin \dfrac{2x}{n}}{2n+1}+\cdots\dfrac{n\sin \dfrac{nx}{n}}{n^2+1}
+	\bigg).\]\par 
+	2. 计算定积分\[I=\int_{0}^{\frac{\pi}{2}}\dfrac{\sin x\cos x}{a^2\sin^2x+b^2\cos x}\,\rmd x.\]\par 
+	3. 计算二重积分\[
+	\iint_D\dfrac{x}{y^2(1+xy)}\,\rmd x\rmd y,\]
+	其中D是$xy=1,\ xy=3,\ y^2=x,\ y^2=3x$所围成的区域.\par
+	4. 计算第二型曲线积分\[
+	\oint_{L}\dfrac{x\,\rmd y-y\,\rmd x}{4x^2+y^2},\]
+	其中L是以$(1,0)$为圆心, 2为半径的圆, 沿逆时针方向.\par
+	5. 请将$f(x)=\begin{cases}
+		-\dfrac{\pi}{4}&-\pi<x<0\\
+		\dfrac{\pi}{4}&0\leq x\leq\pi
+	\end{cases}$展开Fourier级数并计算$\sum\limits_{n=1}^\infty\dfrac{1}{(2n-1)^2}$.\par 
+	6. 已知$f(x)\mbox{在}[0,+\infty)$上一致连续,$g(x)\mbox{在}[0,+\infty)$上连续, 且$\lim\limits_{x\rightarrow+\infty}[f(x)-g(x)]=0$. 证明: $g(x)\mbox{在}[0,+\infty)$上一致连续.\par 
+	7. 已知$f(x)$在$[0,1]$上二阶可微且有$f'(0)=f'(1)=0$. 证明: $\exists\ \xi\in(0,1)\ s.t.\ |f''(\xi)|\ge4|f(1)-f(0)|$.\par 
+	8. 已知$f(x)$在$[a,b]$上连续且恒正. 证明: $\int_a^bf(x)\,\rmd x\cdot\int_a^b\dfrac{1}{f(x)}\,\rmd x\ge(b-a)^2$.\par 
+	9. 已知$\sum\limits_{n=1}^\infty a_n$绝对收敛. 证明: $\sum\limits_{n=1}^\infty(a_1+a_2+\cdots+a_n)a_n$.\par 
+	10. 已知$\sum\limits_{n=1}^\infty a_n\mbox{收敛},\ \{b_n\}$是单调递增的正项数列, 且$b_n\rightarrow+\infty$. 证明:\[
+	\lim\limits_{n\rightarrow\infty}\dfrac{a_1b_1+a_2b_2+\cdots a_nb_n}{b_n}=0.\]\par 
+	\clearpage
+	\section{数学分析2021}
+	1. 计算极限$I=\lim\limits_{x\rightarrow+\infty}x\bigg(1+x\ln\Big(1-\dfrac{1}{x}\Big)\bigg)$.\par 
+	2. 设$z=z(x,y)$且满足$F(cx-az,cy-bz)=0$. 求$a\dfrac{\partial z}{\partial x}+b\dfrac{\partial z}{\partial y}$.\par 
+	3. 已知曲线$x^2+y^2=1,\ x,y>0$. 求该曲线上的一点$(x,y)$使得过该点的切线与x轴, y轴所围成的三角形的面积最小.\par
+	4. 计算第二型曲线积分\[\int_L(x+y)^2\,\rmd x-(x^2+y^2)\,\rmd y,\]其中L是由$A(1,1),\ B(2,5),\ C(3,2)$所围成的三角形区域, 沿逆时针方向.\par
+	5. 请将$f(x)=x(\pi-x),\ x\in[0,\pi]$展开为余弦级数.\par
+	6. 证明: $\int_0^\pi f(x)\,\rmd x=\dfrac{1}{2}\int_0^\pi\big[f(x)+f(\pi-x)\big],\ $并且计算$\int_0^\pi\dfrac{x\sin x}{1+\cos^2x}$.\par 
+	7. 证明: $\sum\limits_{n=3}^\infty\ln\Big(1+\dfrac{x}{n\ln^2n}\Big),\ x\in[-1,1]$是一致收敛的.\par
+	8. 证明: 广义积分$\int_0^{+\infty}\dfrac{e^{\sin x}\sin 2x}{x}\,\rmd x$收敛.\par
+	9. 设$f(x)\mbox{在}[a,b]$可导且$f'(x)$单调递增. 证明: \[
+	\int_a^bf(x)\,\rmd x\leq\dfrac{1}{2}(b-a)[f(a)+f(b)].\]\par 
+	10. 设$f(x)\mbox{在}[0,1]$上可导且$|f'(x)\leq k<1|$. 若数列$\{x_n\}$满足: $x_0=0,\ x_{n+1}=f(x_n),\ n=0,1,2\cdots$. 证明: $\{x_n\}$收敛. \par
+	\clearpage
+	\section{数学分析2022}
+	1. 给定参数方程$\left\{\begin{aligned}
+		&x=\arctan t\\
+		&2y-ty^2+e^t=5
+	\end{aligned}\right.$. 求$\dfrac{\rmd y}{\rmd x}\Big|_{t=0},\ \dfrac{\rmd^2 y}{\rmd x^2}\Big|_{t=0}$\par
+	2. 请将$f(x)=\begin{cases}
+		\dfrac{\pi-1}{2}x &0\leq x \leq1\\
+		\dfrac{\pi-x}{2} &1\leq x\leq \pi
+	\end{cases}$展开为正弦级数.\par
+	3. 计算极限$\lim\limits_{n\rightarrow\infty}\dfrac{\sqrt{n}(1^a+2^a+\cdots_n^a)}{\sqrt{1\times3+2\times4+\cdots n(n+2)}}\sin\dfrac{1}{n^a},\ a>0.$\par 
+	4. 计算第二型曲面积分\[I=\iint_{S}\dfrac{(x-5)\,\rmd y\rmd z+y\,\rmd x\rmd z+z\,\rmd x\rmd y}{\big[(x-5)^2+y^2+z^2\big]^\frac{3}{2}},\]
+	其中S为曲面$(x-5)^2+y^2+z^2=3,\ $方向取外侧. \par
+	5. 证明: $f(x)=\int_0^{+\infty}t^{x-1}e^{-t}\ln t\,\rmd t\mbox{在}(0,+\infty)$上连续. \par 
+	6. 计算曲面$(x^2+y^2+z^2)^2=4(x^2+y^2-z^2)$所围成的图形的体积.\par
+	7. (1)证明: $\sum\limits_{n=1}^{\infty}\dfrac{(-1)^n n(n+1)}{n(n+1)x^2+2^n}\mbox{在}\mathbb{R}$上一致连续.\par
+	\hspace{1.2em}(2)计算极限$\lim\limits_{x\rightarrow0}\sum\limits_{n=1}^\infty\dfrac{(-1)^n n(n+1)}{n(n+1)x^2+2^n}$.\par 
+	8. 已知$\lim\limits_{n\rightarrow\infty}a_n=a\neq0$. 请用定义证明: $\lim\limits_{n\rightarrow\infty}\dfrac{1}{a_n}=\dfrac{1}{a}$.\par 
+	9. 已知$f(x)$为$[A,B]$上的连续函数且有$[a,b]\subseteq[A,B]$, 证明:\[
+	\lim\limits_{h\rightarrow0}\dfrac{1}{h}\int_a^b\Big[f(x+h)-f(x)\Big]\,\rmd x=f(b)-f(a).\]\par 
+	10. (1)证明: Abel和差变换公式.\par 
+	\hspace{1.7em}(2)已知$\lim\limits_{n\rightarrow\infty}\dfrac{1}{n}\sum\limits_{k=1}^n kx_k=A$. 证明: $\lim\limits_{n\rightarrow\infty}\dfrac{1}{n^2}\sum\limits_{k=1}^n k^2x_k=\dfrac{A}{2}$.\par 
+	11. 已知广义积分$\int_0^{+\infty}$条件收敛且$f^+=\dfrac{1}{2}(|f|+f),\ f^-=\dfrac{1}{2}(|f|-f)$. 证明: \par
+	\hspace{1.7em}(1)$\int_0^{+\infty}f^+\,\rmd x$与$\int_0^{+\infty}f^-\,\rmd x$均发散到$+\infty$.\par 
+	\hspace{1.7em}(2)当$A\rightarrow+\infty$时, $\int_0^{A}f^+\,\rmd x$与$\int_0^{A}f^+\,\rmd x$等价.\par
+	12. 已知$f(x)$在$[a,b]$上可积且$\lim\limits_{x\rightarrow a^+}f(x)=A$. 设非负的$g(x,h)$满足$\lim\limits_{h\rightarrow 0^+}\int_a^b g(x,h)\,\rmd x=1,\ \forall h\in(a,b)$. 若对于任意的$c\in(a,b)$, 均有当$h\rightarrow 0^+$时, $g(x,h)$关于$x\in[c,b]$一致收敛于0. 即$\forall \varepsilon>0,\ \exists\delta>0,\ $当$0<h<\delta$时, 对$\forall x\in[c,b]$有$|g(x,h)|<\varepsilon$. 证明:\[
+	\lim\limits_{h\rightarrow0 ^+}\int_a^bf(x)g(x,h)\,\rmd x=A.\]\par 
+	
+	\clearpage
+	\section{数学分析2023}
+	1. 计算极限$\lim\limits_{x\rightarrow0}$$\bigg(-\dfrac{\cot x}{e^{-2x}}+\dfrac{1}{e^{-x}\sin^2x}-\dfrac{1}{x}\bigg).$\par 
+	2. 计算广义积分\[
+	\int_0^{+\infty}e^{-\frac{1}{4s}}s^{-\frac{3}{2}}e^{-s}\,\rmd s.\]\par 
+	3. 判断积分$\int_0^{2\pi}e^{-x^2}\cos x\,\rmd x$的正负, 并证明你的结论.\par
+	4. 设$I(x_0,x_1)=\iint_\Sigma\dfrac{e^{-x^\alpha}}{\sqrt{y^2+z^2}}\,\rmd y\rmd z$, 其中$\Sigma$为抛物面$x=y^2+z^2$与平面$x=x_0,\ x=x_1$所围成立体图形的表面的内侧, $\alpha>0,\ x_1>x_0>0$. 求极限$\lim\limits_{\substack{x_0\rightarrow0\\x_1\rightarrow+\infty}}I(x_0, x_1).$\par 
+	5. 求解以下问题.\\
+	\hspace{1.2em}(1) 证明: 方程$(x+1)^{x+1}=ex^x$有唯一正根.\par
+	\hspace{1.2em}(2) 设$p(x)=x-x^2$, 记$[x]$为高斯取整函数, 即不超过$x$的最大整数, 又设$f(x)$是二阶连续可微函数, 对于$\forall k\in\mathbb{N}^*$, 证明: \[
+	\int_k^{k+1}f(x)\,\rmd x=\dfrac{f(k+1)+f(k)}{2}-\dfrac{1}{2}\int_k^{k+1}f''(x)p(x-[x])\,\rmd x.\]\par 
+	\hspace{1.2em}(3) 若$\beta$为(1)中方程的根, 计算极限$\lim\limits_{n\to \infty}\bigg(\beta+\dfrac{1}{n}\bigg)\bigg(\beta+\dfrac{2}{n}\bigg)\cdots\bigg(\beta+\dfrac{n}{n}\bigg)$.\par 
+	6. (1) 对任意的$x>0,\ y\in\mathbb{R}$, 证明: $xy\leq x\ln x-x+e^y$.\par 
+	\hspace{1.2em}(2) 设$\alpha,\beta$是任意的非零实数, 对正整数$n$, 证明:\[
+	\sum_{k=0}^{n}\binom{\alpha}{k}\binom{\beta}{n-k}=\binom{\alpha+\beta}{n},\]
+	\hspace{1.2em}其中$\dbinom{\alpha}{k}=\dfrac{\alpha(\alpha-1)\cdots(\alpha-k+1)}{k!},\ \dbinom{\alpha}{0}=1.$\par 
+	7. 设$f: [0,1]\to(0,+\infty)$为连续函数, 常数$a\ge1$. 证明: \[
+	\lim\limits_{n\to\infty}\sqrt[n]{\int_0^1(a+x^n)^nf(x)\,\rmd x}=a+1.\]\par 
+	8. 设$f(x)$在$\mathbb{R}$上可微, 且对任意的实数$x$有$f(x)=f(x+2k)=f(x+b)$, 其中$k$为正整数, $b$为正无理数. 请用Fourier级数理论证明$f(x)$为常数.\par
+	9. 设二元函数$f(x,y)$在$(x_0,y_0)$的某领域$U$上有定义, 且在$U$内有偏导数. 证明: 若偏导数$f_x(x,y)$和$f_y(x,y)$都在点$(x_0,y_0)$可微, 则$f_{xy}(x_0,y_0)=f_{yx}(x_0,y_0).$\par 
+	\clearpage
+	\section{高等代数2009}
+{	\linespread{1.4}\selectfont%对以下内容生效行间距
+	%\addcontentsline{toc}{section}{高等代数2009}
+	1. 计算行列式(空白处为0)$\begin{vmatrix}
+		x & & & & a_n\\
+		-1&x & & &a_{n-1}\\
+		  &-1&\ddots& &\vdots\\
+		  & &\ddots&x&a_2\\
+		  & & &-1&x+a_1\\
+	\end{vmatrix}$.\par 
+	2. 设$A$是$n\times r$阶矩阵, $B$是$r\times s$阶矩阵, 如果$\mathrm{rank}(B)=r$. 证明: \par
+	\hspace{1.2em}(1) 如果$AB=0$, 则$A=0$.\par
+	\hspace{1.2em}(2) 如果$AB=A$, 则$A=I$.\par
+	3. 已知$A=\begin{bmatrix}
+		a_{11}&a_{12}&a_{13}\\
+		a_{21}&a_{22}&a_{23}\\
+	\end{bmatrix}$, $\alpha=(c_1,c_2,c_3)'$, 其中$c_1=\begin{vmatrix}
+	a_{12}&a_{13}\\
+	a_{22}&a_{23}\\
+	\end{vmatrix},\ c_2=\begin{vmatrix}
+	a_{13}&a_{11}\\
+	a_{23}&a_{21}\\
+	\end{vmatrix},\ c_3=\begin{vmatrix}
+	a_{11}&a_{12}\\
+	a_{21}&a_{22}\\
+	\end{vmatrix}$. 证明: \par 
+	\hspace{1.2em}(1) $r(A)=2\iff\alpha\neq0.$\par
+	\hspace{1.2em}(2) 若$r(A)=2$, 则$\alpha$是$AX=0$的基础解系.\par 
+	4. 已知$\alpha_1,\alpha_2,\cdots,\alpha_k$是$AX=0$的一个基础解系, 同时$\beta_1,\beta_2,\cdots,\beta_k$是$AX=0$的一组解. 记$S=(\alpha_1,\alpha_2,\cdots,\alpha_k),\ T=(\beta_1,\beta_2,\cdots,\beta_k)$. 证明: \par 
+	\hspace{1.2em}(1) 存在$k$阶方阵$C$使得$T=SC$. \par
+	\hspace{1.2em}(2) $\beta_1,\beta_2,\cdots,\beta_k$也是$AX=0$的基础解系$\iff$ $C$可逆.\par
+	5. 设$\mathscr{A}$是欧氏空间$E$中的一个线性变换, 对任意的$\alpha,\beta$均有$\left<\mathscr{A}\alpha,\beta\right>=\left<\alpha,\mathscr{A}\beta\right>$. 解决以下问题.\par
+	\hspace{1.2em}(1) 证明$\mathscr{A}$的特征值全是实数.\par
+	\hspace{1.2em}(2) 问是否可以找到一组基使得$\mathscr{A}$对应对角矩阵.\par
+	\hspace{1.2em}(3) 取$E=\mathbb{R}^3$以及取它的一组标准正交基$\{e_1,e_2,e_3\}$, 已知$\mathscr{A}(e_1)=\mathscr{A}(e_2)=\mathscr{A}(e_3)=e_1+e_2+e_3$. 求$\mathbb{R}^3$的另一组标准正交基使得$\mathscr{A}$对应对角矩阵.\par
+	6. 设$\mathscr{A}$是$n$维线性空间$V$内的一个幂等线性变换, 即有$\mathscr{A}^2=\mathscr{A}$. \par
+	\hspace{1.2em}(1) 证明: $V=\mathrm{Im}\mathscr{A}+\mathrm{ker}\mathscr{A}$, 并说明这是直和吗?\par
+	\hspace{1.2em}(2) 设$\mathscr{A}$的秩为$r$. 证明: 存在$V$的一组基使得, 对任意的$\alpha$, 若$\alpha$在这组基下的坐标为$\left(x_1,x_2,\cdots x_n\right)$, 则$\mathscr{A}\alpha$在基下的坐标为$\left(x_1, x_2,\cdots, x_r,0,\cdots,0\right)$.\par 
+	\hspace{1.2em}(3) 求出$\mathscr{A}$的最小多项式. \par
+	7. 设$A$是$n$阶实对称矩阵, $\alpha$是$n$维实向量, 已知$\begin{bmatrix}
+		A&\alpha\\
+		\alpha'&1
+	\end{bmatrix}$正定.\par
+	\hspace{1.2em}(1) 证明: $A$可逆以及判断$A$是否正定.\par
+	\hspace{1.2em}(2) 证明: $\alpha'A^{-1}\alpha<1$.\par 
+	
+	\clearpage
+	}
+	\section{高等代数2010}
+	1. 计算$n$阶行列式 $\begin{vmatrix}
+		1-x & x& & & \\
+		-1 & 1-x& x& & \\
+		& & \ddots& & \\
+		& & -1& 1-x& x\\
+		& & & -1&1-x\\
+	\end{vmatrix}$.\par 
+	2. (打洞原理)已知$A,B,C,D$均为$n$阶矩阵且$AC=CA$.\par 
+	\hspace{1.2em}(1) 若$A$可逆. 证明: $\begin{vmatrix}
+		A&B\\
+		C&D\\
+	\end{vmatrix}$可逆$\iff \mathrm{det}\left(AD-CB\right)\neq0$.\par 
+	\hspace{1.2em}(2) 若$A$不可逆, 请说明上述结论是否仍然成立.\par
+	3. 已知矩阵$A=\begin{bmatrix}
+		1&-1&0&-1\\
+		1&1&2&-1\\
+		1&0&1&-1\\
+		1&3&4&-1\\
+	\end{bmatrix}$. 求一个秩为2的4阶矩阵$B$使得$AB=0$. \par
+	4. 设$A$是$n$阶矩阵. 证明: $r(A)=1\iff \exists\,\alpha,\beta\neq \mathbf{0}\ s.t.\ A=\alpha\beta'$.\par 
+	5. 设$\mathscr{A}$是一个线性变换, $\lambda$为其对应的一个特征值, $X$是从属于特征值$\lambda$的特征向量. 设$\mathscr{A}'$是线性变换$\mathscr{A}$的转置, $\mu$为其对应的一个特征值且$\lambda\neq\mu$, $Y$是从属于特征值$\lambda$的特征向量. \par
+	\hspace{1.2em}(1) 证明: $Y'X=0$.\par 
+	\hspace{1.2em}(2) 若$X,Y$均为实向量, 证明: $X,Y$线性无关. \par 
+	6. 在$\mathbb{R}^n$中, 已知线性变换$\mathscr{A}$在任意一个基向量$e_i$下的坐标均为$\left(1,1,\cdots,1\right)'$, 其中$e_i$就是第$i$位为1, 其它位为0的向量. \par
+	\hspace{1.2em}(1) 求$\mathscr{A}$的特征值与特征向量. \par
+	\hspace{1.2em}(2) 求$\mathbb{R}^n$的一组标准正交基使得$\mathscr{A}$在这组基下对应对角矩阵. \par
+	7. 已知$A,B$为对称矩阵且$A$为正定矩阵. 证明: 存在矩阵$C$使得$CA+B$为正定矩阵.\par
+	8. 已知$\mathscr{A},\mathscr{B}$是复数域线性空间$V$中的两个线性变换且$\mathscr{AB}=\mathscr{BA}$. \par 
+	\hspace{1.2em}(1)证明: $\mathscr{A},\mathscr{B}$有一个公共的一维不变子空间. \par
+	\hspace{1.2em}(2) 若$\mathscr{A},\mathscr{B}$均可对角化, 证明: 存在一组基使得$\mathscr{A},\mathscr{B}$可同时为对角阵. \par
+	
+	\clearpage
+	\section{高等代数2011}
+	1. 计算行列式 $\begin{vmatrix}
+		1 & a_1&a_2 &\cdots & a_{n-1}\\
+		b_1 & x_1& & &\vdots \\
+		b_2& & x_2& & \\
+		\vdots& & & \ddots& \\
+		b_{n-1}& & & &x_{n-1}\\
+	\end{vmatrix}$.\par
+	2. 解方程组 $\begin{cases}
+		x_1-x_2+x_3+x_4-x_5=0,\\
+		x_1+x_2+x_4+x_5=0,\\
+		x_1-3x_2+2x_3+x_4-3x_5=0,\\
+		3x_1+x_2+x_3+3x_4+x_5=0.\\
+	\end{cases}$ \par 
+	3. 设$A,B$都是$m\times n$, $C$是$n\times n$矩阵且$A=BC$, $\mathrm{rank}(B)=n$. 证明: $\mathrm{r}(A)=\mathrm{r}(C)$.\par 
+	4. 设$\mathscr{A}$是$n$维线性空间$V$上的线性变换且$\mathscr{A}^2=\mathscr{A}$.\par 
+	\hspace{1.2em}(1) 证明: $V=\mathrm{Im}\mathscr{A}\oplus\mathrm{ker}\mathscr{A}$.\par 
+	\hspace{1.2em}(2) 试求$\mathscr{A}$的最小多项式.\par
+	5. 设$A$是$n$实矩阵, $A$的特征值为0或者1. 证明: \par
+	\hspace{1.2em}(1) $A$和$A+I$都可逆. \par
+	\hspace{1.2em}(2) $A$正交$\iff (A+I)^{-1}+(A'+I)^{-1}=I$. \par 
+	6. 设$f(x)$是正的多项式, 即$f(x)>0,\ \forall x$. 又设$A$为实对称矩阵. 证明: \par
+	\hspace{1.2em}(1) $f(A)$是正定的.\par
+	\hspace{1.2em}(2) $A^2+I$可逆.\par
+	7. 设$A$是$m\times n$阶矩阵,$B$是$n\times m$阶矩阵且$m\leq n$. 
+	证明: \[\mathrm{det}\left(\lambda E-BA\right)=\lambda^{n-m}\mathrm{det}\left(\lambda E-AB\right).\]\par 
+	8. 设$\mathscr{A}$是线性空间$V$上的线性变换, 且$\forall \alpha,\beta\in V$有$\left<\mathscr{A}\alpha,\beta\right>=\left<\alpha,\mathscr{A}\beta\right>$. 证明: \par
+	\hspace{1.2em}(1) $\mathrm{Im}\mathscr{A}=\left(\mathrm{ker}\mathscr{A}\right)^\perp$.\par
+	\hspace{1.2em}(2) 若$W$是$\mathscr{A}-$子空间(不变子空间), 则$W^\perp$也是$\mathscr{A}-$子空间.\par
+
+	\clearpage
+	\section{高等代数2012}
+	1. 定义行列式$D=\begin{vmatrix}
+		1&1&1&\cdots&1\\
+		 &1&1&\cdots&1\\
+		 & &1&\cdots&1\\
+		 & & &\ddots&\vdots\\
+		 & & & &1\\
+	\end{vmatrix}$. 求$D$的所有的代数余子式之和.\par
+	2. 已知$A$为实矩阵. 证明: $\mathrm{rank}\left(A'A\right)=\mathrm{rank}A=\mathrm{rank}\left(AA'\right)$.\par 
+	3. 已知矩阵$P=\begin{bmatrix}
+		A&I\\
+		I&I\\
+	\end{bmatrix}$. 证明: $P$可逆$\iff I-A$可逆, 并且在$(I-A)^{-1}$已知的情况下求$P^{-1}$.\par 
+	4. 已知$\mathscr{A,B,C,D}$是$V$上的线性变换且两两可交换, 并有$\mathscr{AC+BD=E}$. 证明: $\mathrm{ker}(\mathscr{AB})=\mathrm{ker}\mathscr{A}+\mathrm{ker}\mathscr{B}$而且是直和.\par
+	5. 已知矩阵$A$的元素全部为1.\par
+	\hspace{1.2em}(1) 求$A$的特征多项与最小多项式. \par
+	\hspace{1.2em}(2) 证明: 矩阵$A$可对角化并求$P$使得$P^{-1}AP$为对角阵.\par
+	6. 求正交变换使得$xy+yz+zx=1$为标准方程并指出其曲面类型.\par
+	7. 设$A,B$为实对称矩阵. \par
+	\hspace{1.2em}(1) 若$A,B$正定且$AB=BA$, 则$AB$也正定.\par
+	\hspace{1.2em}(2) 若$A,B$半正定, 则$A+B$也半正定. 若还有$A$正定, 则$A+B$也正定.\par
+	8. 设$V$是$\mathbb{R}$上的$2n+1$维线性空间, 而$\mathscr{A,B}$是$V$上的线性变换且$\mathscr{AB}=\mathscr{BA}$. 证明: $\exists\, \lambda,\mu\in\mathbb{R}, v\in V, v\neq0\ s.t.\ \mathscr{A}v=\lambda v, \mathscr{B}v=\mu v$.\par 
+	
+	\clearpage
+	\section{高等代数2013}
+	{\linespread{1.35}\selectfont
+	1. 设$n$阶行列式$D_n=\begin{vmatrix}
+		x&a&\cdots&a\\
+		b&x&\cdots&a\\
+		& &\ddots& \\
+		b&b& &x\\
+	\end{vmatrix}$.\par 
+	\hspace{1.2em}(1) 计算$D_n$.\par 
+	\hspace{1.2em}(2) 计算$\sum\limits_{i=1}^n D_{ni}$, 其中$D_{ni}$表示$(n,i)$元素对应的代数余子式.\par
+	2. 已知两个线性方程组$(\mathrm{\rmnum{1}})=\begin{cases}
+		x_1-x_2=0\\
+		x_2+x_4=0\\
+	\end{cases}$. $(\mathrm{\rmnum{2}})=\begin{cases}
+	x_1+x_2+x_3=0\\
+	x_2+x_3-x_4=0\\
+	\end{cases}$.\par 
+	\hspace{1.2em}(1) 请分别给$(\mathrm{\rmnum{1}}), (\mathrm{\rmnum{1}})$的一个基础解系.\par
+	\hspace{1.2em}(2) 请给出给$(\mathrm{\rmnum{1}}), (\mathrm{\rmnum{1}})$的全部公共解.\par
+	3. 设$A,B$是$n$阶幂等矩阵$A^2=A,B^2=B$并且$I-A-B$可逆. 证明: $r(A)=r(B)$.\par 
+	4. 设$V$是数域$\mathbb{F}$上的所有$n$阶矩阵所组成的$n\times n$维的线性空间. 给定矩阵$M$, 定义: $\mathscr{A}:\ V\to V,\ \mathscr{A}(A)=MA-AM$.\par 
+	\hspace{1.2em}(1) 证明: $\mathscr{A}$是$V$上的线性变换. \par
+	\hspace{1.2em}(2) 若$M=\begin{bmatrix}
+		d_1& & &\\
+		 &d_2& & \\
+		 & & \ddots& \\
+		 & & &d_n\\
+	\end{bmatrix}$ 且$d_i\neq d_j(i\neq j)$, 求$\ker(\mathscr{A})$.\par
+	\hspace{1.2em}(3) 若$M=\begin{bmatrix}
+		d_1& \\
+		&d_2\\
+	\end{bmatrix}$, 取$V$的一组基$E_{11}=\begin{bmatrix}
+	1&0 \\
+	0&0\\
+	\end{bmatrix}$, $E_{12}=\begin{bmatrix}
+	0&1 \\
+	0&0\\
+	\end{bmatrix}$, $E_{21}=\begin{bmatrix}
+	0&0 \\
+	1&0\\
+	\end{bmatrix}$, $E_{22}=\begin{bmatrix}
+	0&0 \\
+	0&1\\
+	\end{bmatrix}$. 求$\mathscr{A}$在这组基下对应的矩阵.\par
+	5. 设$A=(a_{ij})$是$n$阶方阵, 并且$a_{ij}>0,\ \sum\limits_{k=1}^n a_{ik}=1\,(1\leq i\leq n)$.\par 
+	\hspace{1.2em}(1) 证明: 对于$A$的所有特征值$\lambda$均有$\left|\lambda\right|\leq1$并且1是$A$的特征值.\par
+	\hspace{1.2em}(2) 证明: 若$A$可逆, 求$A^{-1}$的每行元素之各.\par
+	6. 设$n$阶矩阵$A$有$n$个不同的特征值, 且$AB=BA$. 证明: 
+	\hspace{1.2em}(1) $A,B$有相同的特征向量. \par
+	\hspace{1.2em}(2) $A,B$可对角化. \par
+	7. 设$A,B$都是$n$阶实对称矩阵, 并且$A$正定. 证明: 存在可逆阵容$P$使得$P'AP=I$并且$P'BP$是对角阵. \par
+	8. (存疑)设$\alpha,\beta,\gamma$是线性空间$\mathbb{R}^n$中的向量, 满足$\alpha+\beta+\gamma=0$. \par
+	\hspace{1.2em}(1) 若$\left\langle\alpha,\beta\right\rangle>0$, 证明: $\left<\alpha,\gamma\right><0$, $\left<\beta,\gamma\right><0$且$|r|>\max\{|\alpha|,|\beta|\}$.\par 
+	\hspace{1.2em}(2) 若$\left\langle\alpha,\beta\right\rangle<0$, 证明: $\left<\alpha,\beta\right>>\max\{\left<\alpha,\gamma\right>,\left<\beta,\gamma\right>\}$, 并且$|r|>\max\{|\alpha|,|\beta|\}$.\par 
+	\hspace{1.2em}(3) 请说明(1)(2)的几何含义.\par
+	
+	\clearpage
+	\section{高等代数2014}
+%这一页有点多挤不下.
+	1. 设$S_k=\sum\limits_{i=1}^n {a_i}^k\ (k=0,1,2,\cdots,2n-2)$. 计算下列n阶行列式\[
+	D_n=\begin{vmatrix}
+		S_0&S_1&S_2&\cdots&S_{n-1}\\
+		S_1&S_2&S_3&\cdots&S_n\\
+		S_2& & & &S_{n+1}\\
+		\vdots& & & & \\
+		S_{n-1}& & & &S_{2n-2}\\
+	\end{vmatrix}.\]
+	2. 线性方程组$\begin{cases}
+		a_{11}x_1+a_{12}x_2+\cdots+ a_{1n}x_n=0\\
+		a_{21}x_1+a_{22}x_2+\cdots+ a_{2n}x_n=0\\
+		\cdots\\
+		a_{n-1,1}x_1+a_{n-1,2}x_2+\cdots+ a_{n-1,n}x_n=0\\
+	\end{cases}$简记为$AX=0$. 设$M_i$是$A$中划去第$i$列后的行列式.\par
+	\hspace{1.2em}(1) 证明: $(M_1,-M_2,\cdots,(-1)^{n-1}M_n)'$是此方程组的一个解.\par
+	\hspace{1.2em}(2) 如果$r(A=n-1)$, 请给出此方程的一个基础解系.\par
+	3. 证明: \par
+	\hspace{1.2em}(1) 矩阵方程$AX=0$有解$\iff r(A)=r(A,B)$, 其中$A,B,X$均是n阶矩阵.\par
+	\hspace{1.2em}(2) 方程$Ax=0$与$BAx=0$同解$\iff r(A)=r(BA)$, 其中$A,B$是n阶矩阵, $x$是列向量.\par
+	4. 设$V$是数域$\mathbb{F}$上的线性空间, 且$V=V_1\oplus V_2$, 其中$V_1,V_2$是$V$的非平凡子空间.\par
+	\hspace{1.2em}(1) 证明: 存在唯一的幂等变换$\mathscr{A}$使得$V_1=\{v\in V|\mathscr{A}v=0\}, V_2=\{v\in V|\mathscr{A}v=v\}.$\par
+	\hspace{1.2em}(2) 证明: 存在$V$的一组基使得$\mathscr{A}$在这组基下为对角阵.\par
+	\hspace{1.2em}(3) 若$V_1$的维数为$d$, 请写出这个对角矩阵.\par
+	5. 设$A,B$是复数域上的n阶矩阵且$AB=BA$, 证明: \par
+	\hspace{1.2em}(1) $A$的任意的特征子空间都是$B$的不变子空间.\par
+	\hspace{1.2em}(2) $A,B$有相同的特征向量.\par
+	6. 设$\mathscr{A}$是数域$\mathbb{F}$上的n维线性V上的线性变换. 设$f(\lambda)$是$\mathscr{A}$的特征多项式且$f(x)=g(x)h(x)$, 其中$g(x),h(x)$是互素的. 令$V_1=g(\mathscr{A})V,\ V_2=h(\mathscr{A})V$. 证明: \par
+	\hspace{1.2em}(1) $V=V_1\oplus V_2$.\par
+	\hspace{1.2em}(2) $\dim V_1=\deg h(x),\ \dim V_2=\deg g(x)$.\par 
+	7. 设$A$是n阶正定矩阵. 证明: 存在正交向量组$(v_1,v_2,\cdots,v_n)$使得$A=\sum\limits_{i=1}^n v_i{v_i}'$.\par 
+	8. (1) 设V是一个线性空间, 令$\alpha_1,\alpha_2,\cdots,\alpha_m\in V$, 证明: $\alpha_1,\alpha_2,\cdots,\alpha_m$线性无关$\iff$Gram矩阵$G(\alpha_1,\alpha_2,\cdots,\alpha_m)=\left(\left<\alpha_i,\alpha_j\right>\right)_{n\times n}$可逆. \par
+	\hspace{1.2em}(2) 设W是V的子空间, $\alpha\in V$, $\alpha'$是$\alpha$在W上的正交投影. 若$\alpha_1,\alpha_2,\cdots,\alpha_m$是W的一组基, 则$\alpha$与$\alpha'$的距离$|\alpha-\alpha'|=\sqrt{\dfrac{\det G(\alpha_1,\alpha_2,\cdots,\alpha_m,\alpha)}{\det G(\alpha_1,\alpha_2,\cdots,\alpha_m)}}$.\par 
+}
+	\clearpage
+	\section{高等代数2015}
+	1. 证明$\begin{bmatrix}
+		A_{22}&A_{23}&\cdots&A_{2n}\\
+		A_{32}&A_{33} & & \\
+		\vdots& &\ddots & \\
+		A_{n2}& & &A_{nn}\\
+	\end{bmatrix}=a_{11} |A|^{n-2}$, 其中$A_{ij}$为$a_{ij}$的代数余子式. \par
+	2. (题目缺失)求极大无关组. \par
+	3. 请将矩阵$A=\begin{bmatrix}
+		1&1&1\\
+		1&1&1\\
+		1&1&1\\
+	\end{bmatrix}$正交标准化. \par
+	4. 设$A$为n阶反对称矩阵, $b$是n维列向量, 若$AX=b$有解, 则$r(A)=r\begin{bmatrix}
+		A&b\\
+		-b'&0\\
+	\end{bmatrix}.$\par 
+	5. 设$\mathscr{A}$是V上的线性变换, 设$\mathscr{A}$是V上的一般变换, 且$\left<\mathscr{A}(\alpha),\beta\right>+\left<\alpha,\mathscr{B}(\beta)\right>=0,\ \forall\alpha,\beta\in V$. 证明: \par
+	\hspace{1.2em}(1) $\mathscr{B}$是V上的线性变换. \par
+	\hspace{1.2em}(2) $\mathrm{Im} \mathscr{B}\perp \ker \mathscr{A}$.\par 
+	6. 在线性空间V上的线性变换$\mathscr{A}$有互不同的特征值$\lambda_1,\lambda_2,\cdots,\lambda_k$, 分别对应特征向量$\alpha_1,\alpha_2,\cdots,\alpha_k$, 若有$\alpha_1+\alpha_2+\cdots+\alpha_k\in W$且W是$\mathscr{A-}$子空间. 证明: $\dim W\ge k.$\par
+	7. 设A是n阶正定矩阵. 证明: $|A|\leq a_{11}a_{22}\cdots a_{nn}$.\par
+	8. (1) 设矩阵A,B的特征值均在数域$\mathbb{P}$上, $AB=BA$. 证明: $A,B$有公共的特征向量.\par
+	\hspace{1.2em}(2) 设A,B是数域$\mathscr{P}$上的n阶方阵. A,B的特征值均在$\mathbb{P}$中, $AB=BA$, 则存在可逆阵T使得$T^{-1}AT,T^{-1}BT$均为上三角阵.\par
+	
+	\clearpage
+	\section{高等代数2016}
+	1. 已知行列式$D=\begin{bmatrix}
+		a_{11}&a_{12}&\cdots&a_{1,n-1}&1\\
+		a_{21}&a_{22}&\cdots&a_{2,n-1}&1\\
+		\vdots& & & &\vdots \\
+		a_{n1}&a_{n2}&\cdots&a_{n,n-1}&1\\
+	\end{bmatrix}$. 现将$D$的第j行替换为$b_1,b_2,\cdots,b_{n-1},1\,(1\leq j\leq n)$得到了新的行列式$D_j$. 证明: $D=D_1+D_2+\cdots+D_n.$\par 
+	2. 设A为n阶正定的实对称矩阵, $y\in\mathbb{R}^n,\ y\neq0$. 证明: $\lim\limits_{m\to \infty}\dfrac{y'A^{m+1}y}{y'A^my}$存在, 
+	且正是A的一个特征值.\par
+	3. 设$A,B\in\mathbb{P}^{n\times n}$且A的n个特征值均不相同. 证明: A的特征向量也是B的特征向量$\iff$AB=BA.\par
+	4. 设V是n维线性空间, $\alpha_1,\alpha_2,\cdots,\alpha_n$是V的一组基. 证明: 任意一组实数$b_1, b_2,\cdots,b_n$恒有一个向量$\alpha\in V$使得$\left<\alpha,\alpha_i\right>=b_i,\,i=1,2,\cdots,n.$\par 
+	5. 设$A\in \mathrm{Mn}(\mathbb{K}),\ f_1(x),f_2(x)\in \mathbb{K}[x]$, 记$f(x)=f_1(x)f_2(x)$. 证明: 如果$f_1(x),\ f_2(x)$互素, 那么$f(A)Z=0$的任意一个解都可以唯一的表示为$f_1(A)Z=0$与$f_2(A)Z=0$的一个解的和.\par
+	6. 证明: \par 
+	\hspace{1.2em}(1) 当A可逆时, 有$\begin{vmatrix}
+		A&B\\
+		C&D\\
+	\end{vmatrix}=\left|A\right|\left|D-CA^{-1}B\right|.$\par
+	\hspace{1.2em}(2) 若A不可逆, 则上述结论成立吗?\par 
+	7. 设空间$\mathbb{C}^{n\times n}$上的变换$\mathscr{B}_A(X)=XA-AX$, 其中A为复矩阵. 证明: $\mathscr{B}_A(X)$的条件反射至多为$n^2-n.$\par 
+	8. (题目缺失)设$\alpha_1,\alpha_2,\cdots,\alpha_n$是一组基. 证明: $\forall b_1,b_2,\cdots,b_n$存在唯一的$\beta_1,\beta_2,\cdots,\beta_n$使得$\left<\beta_i,\alpha_i\right>=b_i.$\par 
+	
+	\clearpage
+	\section{高等代数2017}
+	1. 若矩阵$A=\begin{bmatrix}
+		3&2&-2\\
+		-k&-1&k\\
+		4&2&-3\\
+	\end{bmatrix}$可对角化, 求k, 并求P使得$P^{-1}AP$为对角矩阵.\par
+	2. 设矩阵$A=\begin{bmatrix}
+		1&2\\
+		-1&3\\
+	\end{bmatrix},\ B=\begin{bmatrix}
+	2&1\\
+	0&4\\
+	\end{bmatrix}$. 在空间$\mathbb{P}^{2\times2}$中定义变换$\mathscr{A}(X)=AXB$. 证明: $\mathscr{A}(X)$是线性变换并求出其特征多项式. \par
+	3. 设V是Q上的三维线性空间, $T:\ V\to V$是一个线性变换. 已知$\mathscr{A}(x)=y,\mathscr{A}(y)=z,\mathscr{A}(z)=x+y,\ \forall x,y,z\in V$. 证明: 向量$x,y,z$正是V的一组基.\par 
+	4. 设A,B是正交. 证明$|\det(A+B)|\leq 2^n$.\par 
+	5. 设A,B是n阶矩阵, AB=BA=0, $r(A^2)=r(A)$. 证明: $r(A+B)=r(A)+r(B).$\par 
+	6. 设一个矩阵A的前$n-1$个顺序主子式都大于0, 但是$\det(A)=0$. 证明: A是半正定的.\par
+	7. 设V为n维线性空间. $w_1,w_2,\cdots,w_r$是V的r个真子空间. 证明: 在V中存在一组标准正交基$\alpha_1,\alpha_2,\cdots,\alpha_n$使得所有$\alpha_i\notin W_1\cup W_2\cup \cdots\cup W_r\,(i=1,2,\cdots,n)$.\par 
+	8. 设$\delta$是线性空间V上的线性变换, $W=\{x\in V\big| \delta(x)=2x\}$, 且存在n使得$\delta^n=2^n E$. 证明: W为V的一个子空间, 且$\dim W=\dfrac{\mathrm{tr}(\delta)}{2n}+\dfrac{\mathrm{tr}(\delta^2)}{2^2n}+\cdots+\dfrac{\mathrm{tr}(\delta^n)}{2^n n}$.\par 
+	
+	\clearpage
+	\section{高等代数2018}
+	1. 已知线性方程组$\begin{cases}
+		3ax_1+(2a+1)x_2+(a+1)x_3=0\\
+		(2a-1)x_1+(2a-1)x_2+(a-2)x_3=a+1\\
+		(4a-1)x_1+3ax_2+2ax_3=1\\
+	\end{cases}$. 当a取何值时些方程组有解, 并求解.\par
+	2. 设矩阵$A=\begin{bmatrix}
+		-2&0&0\\
+		2&a&2\\
+		3&1&1\\
+	\end{bmatrix}$与$B=\begin{bmatrix}
+	-1&0&0\\
+	0&2&0\\
+	0&0&b\\
+	\end{bmatrix}$相似.\par
+	\hspace{1.2em}(1) 求$a,b$.\par 
+	\hspace{1.2em}(2) 求可逆阵P使得$P^{-1}AP=B$.\par 
+	3. 设A是n级实矩阵. 若A的第个元素的代数余子式都等于该元素自身. 证明: A=0或者A是可逆阵.\par
+	4. 设A是n级实对称阵. 证明: A可逆$\iff$存在矩阵B使得$AB+B'A$正定.\par
+	5. 设A是三阶的实正交矩阵, $|A|=1$. 证明: 存在$f(\lambda)=\lambda^3-t\lambda^2+t\lambda-1\,(-1\leq t\leq 3)$使得$f(A)=0$.\par 
+	6. (1) 对于方阵A有$A^2=A$, 则A相似于对角阵.\par
+	\hspace{1.2em}(2) 对于n级矩阵A, 若存在$k\in\mathbb{N}$使得$A^k=0$, 则$A^n=0$.\par 
+	7. 设$\mathscr{A}$是线性空间V上的线性变换. 证明: $r(\mathscr{A})=r(\mathscr{A}^2)\iff\ker(\mathscr{A})\cap\mathrm{Im}(\mathscr{A})=\{0\}$.\par 
+	8. 设A,B是n正定矩阵. 证明: AB正定$\iff$AB=BA. \par 
+	
+	\clearpage
+	\section{高等代数2019}
+	1. 设$\alpha,\beta$为n维列向量. 证明: $\left|E+\alpha\beta'\right|=1+\alpha'\beta$.\par 
+	2. 设A是$m\times n$型矩阵. 证明: $r(A)=r\iff A=\alpha_1\beta_1+\alpha_2\beta_2+\cdots+\alpha_r\beta_r$, 其中$\alpha_1,\cdots,\alpha_r$是r个m维的线性无关的向量, $\beta_1,\cdots,\beta_r$也是r个m维的线性无关的向量.\par
+	3. 设矩阵$A=\left(a_{ij}\right)_{n\times n},\ \forall a_{ij}\in \mathbb{Z}$. 证明: \par
+	\hspace{1.2em}(1) 若整数m是A的特征值, 则$m\big| \det(A)$.\par 
+	\hspace{1.2em}(2) 若对任意的j都有$\sum\limits_{i=1}^n a_{ij}=m$, 则m是A的特征值. \par
+	4. 设$A,B$是n阶实正交矩阵. 证明: \par
+	\hspace{1.2em}(1) 若$|A|+|B|=0$, 则$|A+B|=0$.\par 
+	\hspace{1.2em}(2) 若n为奇数, 则$|(A-B)(A+B)|=0.$\par 
+	5. (题目缺失)设X是$\mathbb{R}^{m\times m}$上的矩阵, $\sigma$是$\mathbb{R}^{m\times m}$上的线性变换.\par 
+	6. 设A为实对称矩阵. 定义$\mathrm{sgn}(A)$是矩阵A的符号差(正惯性指数-负惯性指数). 证明: 对于任意的正定矩阵B有$\mathrm{sgn}(A)\leq\mathrm{sgn}(A+B)$.\par
+	7. 设实矩阵$A=\begin{bmatrix}
+		a_1&b_1& & &\\
+		b_1&a_2&b_2& & \\
+		   &   &\ddots& & \\
+		   &   &   & a_{n-1}&b_{n-1}\\
+		   &   &   & b_{n-1}&a_n\\
+	\end{bmatrix}$, 其中$b_1,b_2,\cdots,b_{n-1}$均不为0. 证明: \par
+	\hspace{1.2em}(1) $r(A)\ge n-1$.\par 
+	\hspace{1.2em}(2) A有n个互不相同的特征值.\par
+	\hspace{1.2em}(3) 当$n=4,\ a_1=a_2=a_3=a_4=1,\ b_1=b_2=b_3=2$时, 求A的最小多项式. \par
+	8. 设V是线性空间, $\sigma,\tau$是V上的线性变换且$\sigma^2=\tau^2=\mathscr{E},\ \sigma\tau+\tau\sigma=\mathscr{O}$. 证明: 存在一组基使得$\sigma,\tau$分别对应矩阵$\begin{bmatrix}
+		E&O\\
+		O&-E\\
+	\end{bmatrix},\ \begin{bmatrix}
+	O&E\\
+	E&O\\
+	\end{bmatrix}$.\par 
+	\clearpage 
+	\section{高等代数2020}
+	1. 计算行列式$\begin{vmatrix}
+		a+1&a&a&\cdots& a\\
+		a&a+\dfrac{1}{2}&a& & &\\
+		a&a&a+\dfrac{1}{3}& & \\
+		 & & &\ddots& \\
+		 & & & & a+\dfrac{1}{2020}\\
+	\end{vmatrix}$ (空上的元素全是$a$).\par 
+	2. (题目缺失)关于线性组合. \par
+	3. 已知矩阵$A=\begin{bmatrix}
+	0&0&\cdots&0&-a_n \\
+	1&0&\cdots&0&-a_{n-1}\\
+	0&1& & & \\
+	 & &\ddots& & \\
+	 & & &1&-a_1\\
+	\end{bmatrix}$.\par 
+	\hspace{1.2em}(1) 求A的特征多项式.\par
+	\hspace{1.2em}(2) 证明: A的最小多项式正是其特征多项式.\par
+	4. 已知复矩阵A有n个不同的特征值$\lambda_1,\lambda_2,\cdots,\lambda_n$. 证明: 复矩阵B的特征值也为$\lambda_1,\lambda_2,\cdots,\lambda_n\iff$存在$P,Q$使得$A=PQ,\ B=QP$.\par 
+	5. 设A,B均为可逆阵. 证明: $A'A=B'B\iff$存在正交阵$C$使得$A=CB$.\par
+	6. 已知A为n级实对称矩阵, x为n维列向量, A的正, 负惯性指数为p, q. 设$f(x)=\begin{bmatrix}
+		A&x\\
+		x'&0\\
+	\end{bmatrix}$.\par 
+	\hspace{1.2em}(1) 证明: $f(x)=-x'A^*x$.\par 
+	\hspace{1.2em}(2) 求$f(X)$的正, 负惯性指数. \par
+	7. 设V是数域$\mathbb{F}$上所有n阶矩阵组成的线性空间, 定义线性变换$\mathscr{A}(X)=A'XA\ \forall X\in V$. 证明: $\mathscr{A}$为幂零变换$\iff A$为幂零矩阵.\par
+	8. 设A,B是n阶实矩阵且AB=BA. \par
+	\hspace{1.2em}(1) 证明: $r(AB)\ge r(A)+r(B)-n$.\par 
+	\hspace{1.2em}(2) 若存在$C$和$D$使得$AC+DB=E$, 则$r(AB)=r(A)+r(B)-n$.\par 
+	
+	\clearpage
+	\section{高等代数2021}
+	1. 设A为n阶方阵且A的元素全为整数. 证明: $\dfrac{1}{2}$不是A的特征值.\par
+	2. 给出方程组$\begin{cases}
+		x_1+x_2+x_3+2x_4=3\\
+		2x_1+3x_2+(a+1)x_3+7x_4=8\\
+		x_1+2x_2+3x_4=3\\
+		-x_2+x_3+(a-1)x_4=b-1\\
+	\end{cases}$. 当$a,b$满足什么条件时此方程组无解, 有解, 并在有解时给出通解.\par
+	3. 设A,B是同阶方阵且AB=BA. 证明: $r(AB)+r(A+B)\leq r(A)+r(B)$.\par 
+	4. 设V是数域$\mathbb{F}$上的n维线性空间. $W_1,W_2,\cdots,W_n$是V的n个真子空间. 证明:存在V的一组基$\alpha_1,\alpha_2\cdots,\alpha_n$使得$\alpha_i\notin W_j,\ \forall\,i,j\in\{1,2,\cdots,n\}$.
+	5. 设$\sigma$是欧氏空间V上的正交变换, 且其特征值均为实数. 证明: $\left<\sigma(\alpha),\beta\right>=\left<\alpha,\sigma(\beta)\right>$.\par 
+	6. 设A为n阶方阵且$\mathrm{tr}(A)=0$. 证明: A相似于一个对角线元素全为0的矩阵. \par
+	7. 设A,B为两个同阶实矩阵且A是正定矩阵, B为反对称矩阵. 证明: $\det(A+B)\ge \det A$并指出等号成立的条件. \par
+	8. 设A为n阶正定矩阵, $X\in\mathbb{R}^n$是非零列向量. 证明: \par 
+	\hspace{1.2em}(1) 矩阵$A+XX'$可逆.\par
+	\hspace{1.2em}(2) $0<X'(A+XX')^{-1}X<1$.\par 
+	\clearpage
+	\section{高等代数2022}
+	1. 计算行列式$A=\begin{bmatrix}
+		1&a_1&a_2&\cdots&a_{2022}\\
+		b_1&1&0& & \\
+		b_2&0&2& & \\
+		\vdots& & & \ddots& \\
+		 b_{2022}& & & &2022\\
+	\end{bmatrix}$.\par 
+	2. 设矩阵$A=\begin{bmatrix}
+		2&2&a\\
+		8&2&0\\
+		0&0&6\\
+	\end{bmatrix}$相似于对角阵$\Gamma$, 求$a$的值并求矩阵P使得$P^{-1}AP=\Gamma$.\par 
+	3. 设$A=(a_{ij})$是n阶实矩阵. 已知$a_{ii}>\sum\limits_{j\neq i}|a_{ij}|,\ \forall i=1,2,\cdots,n$. 证明: $|A|>0$.\par 
+	4. 设A,B均为n级实对称矩阵, C为n级反对称. 若$A^2+B^2=C^2$, 则$A=B=C=O$.\par 
+	5. 设A为$m\times n$阶实矩阵. 证明: $r(E_n-A'A)-r(E_m-AA')=n-m.$\par 
+	6. 设A为实对称矩阵且A可逆. 证明: A正定$\iff$任意同级的正矩阵B均有$\mathrm{tr}(AB)>0$.\par 
+	7. 设A为n级半正定矩阵且$r(A)=r$. 证明: $V=\{X\in\mathbb{R}^n\big|X'AX=0\}$是$\mathbb{R}^n$的子空间并求出其维数.\par
+	8. 设$\mathscr{A}$是欧氏空间V上的一个变换, 定义: 若$\mathscr{A}$有$\left<\mathscr{A}\alpha,\beta\right>+\left<\alpha,\mathscr{A}\beta\right>=0$.
+	证明: \par
+	\hspace{1.2em}(1) 反称变换是线性变换.\par
+	\hspace{1.2em}(2) 若$\mathscr{A}$是反称变换, 则$\mathscr{A-E}$是可逆变换.\par
+	\hspace{1.2em}(3) 若$\mathscr{A}$是反称变换, 则$(\mathscr{A+E})(\mathscr{A-E})^{-1}$是正交变换. \par
+	\clearpage
+	\section{高等代数2023}
+	1. 计算行列式$\begin{vmatrix}
+			2^2-2& 2^3-2 &\cdots &2^{2023}-2 \\
+			3^2-2& 3^3-2 &\cdots &3^{2023}-2 \\
+			\vdots &\vdots&\vdots&\vdots\\
+			2023^2-2& 2023^3-2 &\cdots &2023^{2023}-2 \\
+		\end{vmatrix}.$\par 
+	2. 设$A$是$n$阶的幂零矩阵, 求$\mathrm{rank}\begin{bmatrix}
+		A^{n-1} & A^{n-2} & \cdots &A &E \\
+			& A^{n-1} & A^{n-2}	&\cdots& A\\
+			&		& A^{n-1}&\cdots&\vdots\\
+			& & &\ddots &A^{n-2}\\
+			& & & &A^{n-1}\\
+	\end{bmatrix}$
+	3. $A$是三阶实矩阵, $A^3=A^2+A+2E$, 设$B=xA^2+yA+E$.\\
+	(1) $x,y$满足什么条件(充要条件)时, 矩阵$B$可逆?\\
+	(3) 当$x=-1,\ y=1$时, 求尽可能低次数的$f(x)$, 使得$Bf(A)=E$.\par 
+	4. 设$A$为$n$阶实对称矩阵, 且方程组$AX=\alpha$无解, $\alpha\in\mathbb{R}^n,\ d>0$. 证明: $n+1$阶的矩阵$\begin{bmatrix}
+		A & \alpha\\
+		\alpha^T & d\\
+	\end{bmatrix}$是不定矩阵(既不是正定, 也不负定). \par 
+	5. 设$\sigma$是$n$维线性究竟$V$上的线性变换. 证明: \\
+	(1) $\mathrm{Ker}(\sigma)=\mathrm{Ker}(\sigma^2)$当且仅当$\mathrm{Ker}(\sigma)\cap\mathrm{Im}(\sigma)=\{0\}$.\\
+	(2) $\mathrm{Im}(\sigma)=\mathrm{Im}(\sigma^2)$当且仅当$V=\mathrm{Ker}(\sigma)+\mathrm{Im}(\sigma).$\par 
+	6. 设$\sigma$是线性究竟$\mathbb{R}^3$上的线性变换, 且$\sigma^2=0$. 证明: 存在线性函数$f: \mathbb{R}^3\to \mathbb{R}$和$y\in\mathbb{R}^3$使得对任意的$x\in\mathbb{R}^3$, 有$\sigma(x)=f(x)y$.\par 
+	7. 设$n$阶实矩阵$A$的最小多项式为$m(\lambda),\ f(\lambda),\ g(\lambda)$是实系数多项式, $h(\lambda)=[f(\lambda),g(\lambda)]$是二者的最小公倍式, 若$m(\lambda)\,\big|\,h(\lambda)$. 证明: $\mathrm{rank}\big(f(A)\big)+\mathrm{rank}\big(g(A)\big)\ge n.$\par 
+	8. 已知$n$维线性空间$V$中存在一族至少有一个不为零变换的线性变换$\sigma_{ij}(1\leq i,j\leq n)$, 且满足$\sigma_{ij}\sigma_{hk}=\begin{cases}
+		\sigma_{ik} &j=h\\
+		0 &j\neq h
+	\end{cases}$. 证明: 存在$V$的一组基$v_1,v_2,\cdots,v_n$, 使得$\sigma_{ij}(v_k)=\begin{cases}
+	v_i &j=k\\
+	0 &j\neq k\\
+	\end{cases}$. \par 
+	
+	\clearpage
+
+	\begin{thebibliography}{99}
+		%\renewcommand{\section}[2]{} 
+		%\phantomsection\addcontentsline{toc}{section}{参考文献}
+		{\linespread{1.2}\selectfont
+			\bibitem{1} 崔尚斌. 数学分析教程(上中下). 科学出版社. %英文名字中~表示空格
+			\bibitem{2} 裴礼文. 数学分析中的典型问题与方法(第三版). 高等教育出版社.
+			\bibitem{3} 李扬. 数学分析强化讲义.
+			\bibitem{4} 谢惠民等. 数学分析习题课讲义(上下). 高等教育出版社. 
+			\bibitem{5} 华东师范大学数学系. 数学分析(上下)(第四版). 高等教育出版社.
+			\bibitem{6} 李扬. 高等代数强化讲义.
+			\bibitem{7} 北京大学数学系前代数小组. 高等代数(第四版). 高等教育出版社. 
+			\bibitem{8} 钱吉林. 高等代数题解精粹(第三版). 西北工业大学出版社.
+			\bibitem{9} 姚慕生, 谢启鸿. 高等代数(第三版). 复旦大学出版社.
+		}
+	\end{thebibliography} 
+	
+	\clearpage
+	
+\end{document}
+
+
+
+
+
