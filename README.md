@@ -1,5 +1,5 @@
 # 华中科学大学数学分析与高代代数考研真题
-Math Analysis and Advanced Algebra in HUSTMath Graduate Entrance Exam
+Math Analysis and Advanced Algebra in HUSTMath Graduate Entrance Exam\
 华中科学大学数学分析与高代代数考研真题\
 主要内容为本人整理汇编, 主要内容散落在网上各种资料之中\
 PDF文件为可直接使用的文件\
